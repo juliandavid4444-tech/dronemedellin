@@ -47,57 +47,18 @@ const observer = new IntersectionObserver(entries => {
 
 sections.forEach(s => observer.observe(s));
 
-// ---------- Textarea character count ----------
-const textarea  = document.getElementById('detalles');
-const charCount = document.querySelector('.char-count');
-
-if (textarea && charCount) {
-  textarea.addEventListener('input', () => {
-    charCount.textContent = `${textarea.value.length} / 1000 caracteres`;
-  });
-}
-
-// ---------- Contact form (Formspree) ----------
-const form       = document.getElementById('contactForm');
-const submitBtn  = document.getElementById('submitBtn');
-const formSuccess = document.getElementById('formSuccess');
-const formError   = document.getElementById('formError');
-
-if (form) {
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    submitBtn.textContent = 'Enviando...';
-    submitBtn.disabled = true;
-    formSuccess.style.display = 'none';
-    formError.style.display   = 'none';
-
-    try {
-      const data = new FormData(form);
-      const response = await fetch(form.action, {
-        method: 'POST',
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      });
-
-      if (response.ok) {
-        formSuccess.style.display = 'block';
-        form.reset();
-        if (charCount) charCount.textContent = '0 / 1000 caracteres';
-      } else {
-        throw new Error('Server error');
-      }
-    } catch {
-      formError.style.display = 'block';
-    } finally {
-      submitBtn.textContent = 'Enviar Mensaje';
-      submitBtn.disabled = false;
+// ---------- WhatsApp conversion tracking ----------
+document.querySelectorAll('a[href*="api.whatsapp.com"], a[href*="wa.me"]').forEach(link => {
+  link.addEventListener('click', () => {
+    if (typeof gtag === 'function') {
+      gtag('event', 'conversion', { 'send_to': 'AW-581774690' });
     }
   });
-}
+});
 
 // ---------- Scroll reveal animation ----------
 const revealEls = document.querySelectorAll(
-  '.service-card, .testimonial-card, .about-content, .about-image, .contact-info, .contact-form-wrap'
+  '.service-card, .testimonial-card, .about-content, .about-image, .contact-info, .contact-centered'
 );
 
 const revealObserver = new IntersectionObserver(entries => {

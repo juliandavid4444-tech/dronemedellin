@@ -347,53 +347,42 @@ ul   { list-style: none; }
   background: var(--white);
   padding: 90px 0;
 }
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 72px;
-  align-items: start;
+.contact-centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
 }
-.contact-form-wrap h2,
-.contact-info h2 {
+.contact-centered h2 {
   font-family: var(--font-head);
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 2rem;
+  font-weight: 900;
   color: var(--dark);
-  margin-bottom: 28px;
+  margin-bottom: 16px;
 }
-.form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
-.form-group label {
+.contact-centered > p {
+  color: var(--text-light);
+  margin-bottom: 36px;
+  line-height: 1.75;
+}
+.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: #25d366;
+  color: var(--white);
   font-family: var(--font-head);
-  font-size: 0.85rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--text);
-}
-.form-group input,
-.form-group textarea,
-.form-group select {
-  border: 1px solid #ddd;
+  font-size: 1.1rem;
+  padding: 16px 36px;
   border-radius: 4px;
-  background: var(--white);
-  color: var(--text);
-  font-family: var(--font-body);
-  font-size: 1rem;
-  padding: 11px 14px;
-  outline: none;
-  transition: border-color var(--transition);
-  width: 100%;
+  transition: background var(--transition), transform var(--transition);
+  margin-bottom: 36px;
 }
-.form-group input:focus,
-.form-group textarea:focus { border-color: var(--blue); }
-.form-group textarea { resize: vertical; min-height: 130px; }
-.char-count { color: var(--text-light); font-size: 0.8rem; }
-.form-success, .form-error { display: none; margin-top: 14px; padding: 12px 16px; border-radius: 4px; text-align: center; font-weight: 600; font-size: 0.9rem; }
-.form-success { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
-.form-error   { background: #fdecea; color: #c62828; border: 1px solid #f5c6cb; }
-
-.contact-info > p { color: var(--text-light); margin-bottom: 28px; line-height: 1.75; }
+.btn-whatsapp:hover { background: #1ebe5d; transform: translateY(-2px); color: var(--white); }
+.contact-centered .contact-list { align-items: center; margin-bottom: 28px; }
 .contact-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
 .contact-list a {
   display: flex; align-items: center; gap: 12px;
