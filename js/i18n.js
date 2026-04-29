@@ -135,7 +135,7 @@
       'footer-links-services': 'Servicios',
       'footer-links-coverage': 'Cobertura',
       'footer-links-clients':  'Clientes',
-      'footer-copy': '2026 \u00a9 Todos los derechos reservados Drone Medell\u00edn\u00a0|\u00a0 Medell\u00edn, Antioquia, Colombia\u00a0|\u00a0 v 0.3.0'
+      'footer-copy': '2026 \u00a9 Todos los derechos reservados Drone Medell\u00edn\u00a0|\u00a0 Medell\u00edn, Antioquia, Colombia\u00a0|\u00a0 v 0.3.1'
     },
 
     en: {
@@ -264,7 +264,7 @@
       'footer-links-services': 'Services',
       'footer-links-coverage': 'Coverage',
       'footer-links-clients':  'Clients',
-      'footer-copy': '2026 \u00a9 All rights reserved Drone Medell\u00edn\u00a0|\u00a0 Medell\u00edn, Antioquia, Colombia\u00a0|\u00a0 v 0.3.0'
+      'footer-copy': '2026 \u00a9 All rights reserved Drone Medell\u00edn\u00a0|\u00a0 Medell\u00edn, Antioquia, Colombia\u00a0|\u00a0 v 0.3.1'
     }
   };
 

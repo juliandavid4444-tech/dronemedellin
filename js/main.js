@@ -192,5 +192,67 @@ document.querySelectorAll('.lite-youtube').forEach(el => {
   });
 });
 
+// ---------- AI referral tracking ----------
+// Detecta si el usuario llegó desde un modelo de IA conocido.
+// Capa 1: evento ai_referral → visible en GA4 › Eventos
+// Capa 2: user property ai_source → permite segmentar todas las sesiones del usuario
+// Capa 3: localStorage → atribuye visitas de retorno ("directo") al AI original
+(function () {
+  var AI_SOURCES = {
+    'perplexity.ai':           'Perplexity',
+    'chatgpt.com':             'ChatGPT',
+    'chat.openai.com':         'ChatGPT',
+    'claude.ai':               'Claude',
+    'gemini.google.com':       'Gemini',
+    'aistudio.google.com':     'Gemini',
+    'copilot.microsoft.com':   'Copilot',
+    'bing.com':                'Bing/Copilot',
+    'you.com':                 'You.com',
+    'phind.com':               'Phind',
+    'poe.com':                 'Poe',
+    'character.ai':            'Character.ai',
+    'mistral.ai':              'Mistral',
+    'grok.com':                'Grok',
+    'x.com':                   'Grok/X',
+  };
+  var STORAGE_KEY = 'dm_ai_source';
 
+  var ref = document.referrer;
+  var detected = null;
 
+  // Detectar desde el referrer de esta visita
+  if (ref) {
+    var refHost = ref.replace(/^https?:\/\//, '').split('/')[0].toLowerCase();
+    Object.keys(AI_SOURCES).forEach(function (domain) {
+      if (refHost === domain || refHost.endsWith('.' + domain)) {
+        detected = AI_SOURCES[domain];
+      }
+    });
+  }
+
+  // Si es visita nueva desde AI: guardar en localStorage para retorno
+  if (detected) {
+    try { localStorage.setItem(STORAGE_KEY, detected); } catch (e) {}
+  }
+
+  // Para visitas de retorno sin referrer: recuperar la fuente original
+  var source = detected;
+  if (!source) {
+    try { source = localStorage.getItem(STORAGE_KEY); } catch (e) {}
+  }
+
+  if (!source || typeof gtag !== 'function') return;
+
+  // Capa 1: evento puntual (solo en la sesión donde llegó desde el AI)
+  if (detected) {
+    gtag('event', 'ai_referral', {
+      event_category: 'acquisition',
+      event_label: detected,
+      ai_model: detected,
+      referrer_url: ref || '(direct)'
+    });
+  }
+
+  // Capa 2: user property persistente (aplica a esta sesión y las siguientes)
+  gtag('set', 'user_properties', { ai_source: source });
+})();
