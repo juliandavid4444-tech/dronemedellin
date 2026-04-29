@@ -370,18 +370,28 @@ ul   { list-style: none; }
 .btn-whatsapp {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   background: #25d366;
-  color: var(--white);
+  color: #fff !important;
   font-family: var(--font-head);
   font-weight: 700;
-  font-size: 1.1rem;
-  padding: 16px 36px;
-  border-radius: 4px;
-  transition: background var(--transition), transform var(--transition);
-  margin-bottom: 36px;
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 18px 44px;
+  border-radius: 6px;
+  box-shadow: 0 6px 24px rgba(37,211,102,0.35);
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  margin-bottom: 40px;
+  text-decoration: none;
 }
-.btn-whatsapp:hover { background: #1ebe5d; transform: translateY(-2px); color: var(--white); }
+.btn-whatsapp svg { flex-shrink: 0; }
+.btn-whatsapp:hover {
+  background: #1aab55;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 32px rgba(37,211,102,0.45);
+  color: #fff !important;
+}
 .contact-centered .contact-list { align-items: center; margin-bottom: 28px; }
 .contact-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
 .contact-list a {
