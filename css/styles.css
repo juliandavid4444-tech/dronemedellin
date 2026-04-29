@@ -89,6 +89,29 @@ ul   { list-style: none; }
 .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
 .nav-toggle span { display: block; width: 26px; height: 2px; background: var(--white); border-radius: 2px; transition: var(--transition); }
 
+/* ---- Language toggle ---- */
+.lang-toggle {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 4px;
+  color: var(--white);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 5px 10px;
+  font-family: var(--font-head);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  flex-shrink: 0;
+  transition: border-color var(--transition);
+}
+.lang-toggle:hover { border-color: rgba(255,255,255,0.75); }
+.lang-opt { opacity: 0.45; transition: opacity var(--transition); }
+.lang-opt.active { opacity: 1; }
+.lang-sep { opacity: 0.3; font-size: 0.7rem; }
+
 /* ========================================
    HERO — video de fondo pantalla completa
    ======================================== */
@@ -756,6 +779,8 @@ ul   { list-style: none; }
   }
   .nav-links.open { display: flex; }
   .nav-links a { font-size: 1rem; }
+  /* On mobile the lang toggle lives inside the overlay menu — make it a bit bigger */
+  .nav-links .lang-toggle { font-size: 0.9rem; padding: 8px 18px; }
   .panel-row { flex-direction: column; }
   .panel { min-height: 360px; }
   .panel-overlay { padding: 60px 24px 32px; }
