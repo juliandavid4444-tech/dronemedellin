@@ -256,3 +256,44 @@ document.querySelectorAll('.lite-youtube').forEach(el => {
   // Capa 2: user property persistente (aplica a esta sesión y las siguientes)
   gtag('set', 'user_properties', { ai_source: source });
 })();
+
+// ---------- Brands marquee: pausa en logo, aceleración en bordes ----------
+(function () {
+  var marquee = document.querySelector('.brands-marquee');
+  var track   = document.querySelector('.brands-track');
+  if (!marquee || !track) return;
+
+  var NORMAL = '45s';
+  var FAST   = '10s';
+  var EDGE   = 0.15;
+  var onItem = false;
+
+  document.querySelectorAll('.brand-item').forEach(function (item) {
+    item.addEventListener('mouseenter', function () {
+      onItem = true;
+      track.style.animationPlayState = 'paused';
+    });
+    item.addEventListener('mouseleave', function () {
+      onItem = false;
+      track.style.animationPlayState = 'running';
+    });
+  });
+
+  marquee.addEventListener('mousemove', function (e) {
+    if (onItem) return;
+    var rect = marquee.getBoundingClientRect();
+    var x = (e.clientX - rect.left) / rect.width;
+    if (x < EDGE || x > (1 - EDGE)) {
+      track.style.animationDuration = FAST;
+      track.style.animationPlayState = 'running';
+    } else {
+      track.style.animationDuration = NORMAL;
+    }
+  });
+
+  marquee.addEventListener('mouseleave', function () {
+    onItem = false;
+    track.style.animationDuration = NORMAL;
+    track.style.animationPlayState = 'running';
+  });
+})();

@@ -380,7 +380,9 @@ ul   { list-style: none; }
 }
 .brands-marquee {
   margin-top: 48px;
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
+  padding: 40px 0;
   mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
 }
@@ -391,13 +393,14 @@ ul   { list-style: none; }
   width: max-content;
   animation: brand-scroll 45s linear infinite;
 }
-.brands-track:hover { animation-play-state: paused; }
+/* brand-item hover pause handled by JS */
 .brand-item {
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 52px;
+  cursor: pointer;
 }
 .brand-item img {
   height: 38px;
@@ -406,11 +409,14 @@ ul   { list-style: none; }
   object-fit: contain;
   filter: grayscale(1);
   opacity: 0.6;
-  transition: opacity 0.3s ease, filter 0.3s ease;
+  transform: scale(1);
+  transform-origin: center bottom;
+  transition: opacity 0.25s ease, filter 0.25s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .brand-item img:hover {
   opacity: 1;
   filter: none;
+  transform: scale(1.65);
 }
 .brand-item span {
   font-size: 0.72rem;
