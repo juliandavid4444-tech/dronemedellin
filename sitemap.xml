@@ -1,9 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://dronemedellin.com.co/</loc>
-    <lastmod>2026-02-21</lastmod>
+    <lastmod>2026-04-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://dronemedellin.com.co/img/tomas-aereas.webp</image:loc>
+      <image:title>Tomas aéreas con drone en Medellín</image:title>
+      <image:caption>Servicio de tomas aéreas profesionales con drones en Medellín y Antioquia.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dronemedellin.com.co/img/dia-de-drone.webp</image:loc>
+      <image:title>Día de drone para eventos en Antioquia</image:title>
+      <image:caption>Cobertura completa con operador certificado de drone.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dronemedellin.com.co/img/video.webp</image:loc>
+      <image:title>Producción de video con drone</image:title>
+      <image:caption>Filmación profesional para empresas y proyectos.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dronemedellin.com.co/img/fotografia.webp</image:loc>
+      <image:title>Fotografía profesional aérea y de tierra</image:title>
+      <image:caption>Sesiones fotográficas profesionales en Medellín.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dronemedellin.com.co/img/video-promocional-drone-medellin.webp</image:loc>
+      <image:title>Video promocional con drone para hoteles y fincas</image:title>
+      <image:caption>Video promocional empresarial con tomas aéreas.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dronemedellin.com.co/img/julian-rua-ceo-drone-medellin.webp</image:loc>
+      <image:title>Julian Rua – CEO Fundador de Drone Medellín</image:title>
+      <image:caption>Director y operador audiovisual de Drone Medellín.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dronemedellin.com.co/img/hero-poster-drone-medellin.webp</image:loc>
+      <image:title>Vista aérea de Medellín con drone</image:title>
+      <image:caption>Toma aérea panorámica de la ciudad de Medellín.</image:caption>
+    </image:image>
   </url>
 </urlset>

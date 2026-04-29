@@ -162,3 +162,65 @@ revealStyle.textContent = `
   .reveal.revealed { opacity: 1; transform: translateY(0); }
 `;
 document.head.appendChild(revealStyle);
+
+// ---------- Lite YouTube facade ----------
+// Reemplaza el poster por iframe sólo cuando el usuario hace click,
+// mejorando dramáticamente el LCP y el peso inicial de la página.
+document.querySelectorAll('.lite-youtube').forEach(el => {
+  const activate = () => {
+    if (el.dataset.loaded === '1') return;
+    const id = el.dataset.id;
+    if (!id) return;
+    const title = el.dataset.title || 'Video';
+    const iframe = document.createElement('iframe');
+    iframe.setAttribute('src', `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`);
+    iframe.setAttribute('title', title);
+    iframe.setAttribute('frameborder', '0');
+    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+    iframe.setAttribute('allowfullscreen', '');
+    iframe.setAttribute('loading', 'lazy');
+    el.innerHTML = '';
+    el.appendChild(iframe);
+    el.dataset.loaded = '1';
+    if (typeof gtag === 'function') {
+      gtag('event', 'video_play', { event_category: 'engagement', event_label: title });
+    }
+  };
+  el.addEventListener('click', activate);
+  el.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); }
+  });
+});
+
+// ---------- Hero background video: carga diferida ----------
+// Carga el iframe del hero después de que la página esté ociosa,
+// manteniendo el efecto de video de fondo sin bloquear el LCP.
+(function () {
+  const wrap = document.getElementById('heroVideoWrap');
+  if (!wrap) return;
+  const id = wrap.dataset.videoId;
+  if (!id) return;
+  const loadHeroVideo = () => {
+    if (wrap.dataset.loaded === '1') return;
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1`;
+    iframe.title = 'Drone Medellín – Showreel';
+    iframe.frameBorder = '0';
+    iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
+    iframe.setAttribute('allowfullscreen', '');
+    iframe.setAttribute('aria-hidden', 'true');
+    iframe.setAttribute('tabindex', '-1');
+    iframe.addEventListener('load', () => {
+      // Fade poster out una vez el iframe ya pintó
+      setTimeout(() => wrap.classList.add('is-loaded'), 400);
+    });
+    wrap.appendChild(iframe);
+    wrap.dataset.loaded = '1';
+  };
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(loadHeroVideo, { timeout: 2000 });
+  } else {
+    setTimeout(loadHeroVideo, 1200);
+  }
+})();
+

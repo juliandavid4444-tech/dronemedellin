@@ -1,0 +1,25 @@
+{
+  "name": "Drone Medellín",
+  "short_name": "Drone Medellín",
+  "description": "Fotografía y video aéreo con drones en Medellín y Antioquia.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#1b1b1b",
+  "theme_color": "#265cdc",
+  "lang": "es-CO",
+  "icons": [
+    {
+      "src": "/img/cropped-favicon-org-150x150.png",
+      "sizes": "150x150",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/img/cropped-favicon-org-150x150.png",
+      "sizes": "150x150",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
