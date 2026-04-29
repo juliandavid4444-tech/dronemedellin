@@ -50,10 +50,90 @@ sections.forEach(s => observer.observe(s));
 // ---------- WhatsApp conversion tracking ----------
 document.querySelectorAll('a[href*="api.whatsapp.com"], a[href*="wa.me"]').forEach(link => {
   link.addEventListener('click', () => {
-    if (typeof gtag === 'function') {
-      gtag('event', 'conversion', { 'send_to': 'AW-581774690' });
+    if (typeof gtag !== 'function') return;
+    gtag('event', 'conversion', { 'send_to': 'AW-581774690' });
+    gtag('event', 'whatsapp_click', {
+      event_category: 'contacto',
+      event_label: link.id || link.className || 'whatsapp'
+    });
+  });
+});
+
+// ---------- Click en teléfono ----------
+document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+  link.addEventListener('click', () => {
+    if (typeof gtag !== 'function') return;
+    gtag('event', 'phone_click', { event_category: 'contacto', event_label: link.href });
+  });
+});
+
+// ---------- Click en email ----------
+document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
+  link.addEventListener('click', () => {
+    if (typeof gtag !== 'function') return;
+    gtag('event', 'email_click', { event_category: 'contacto', event_label: link.href });
+  });
+});
+
+// ---------- Click en redes sociales ----------
+document.querySelectorAll('.social-row a').forEach(link => {
+  link.addEventListener('click', () => {
+    if (typeof gtag !== 'function') return;
+    gtag('event', 'social_click', {
+      event_category: 'redes_sociales',
+      event_label: link.getAttribute('aria-label') || link.href
+    });
+  });
+});
+
+// ---------- Click en botones CTA ----------
+document.querySelectorAll('.btn-blue, .btn-whatsapp').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (typeof gtag !== 'function') return;
+    gtag('event', 'cta_click', {
+      event_category: 'engagement',
+      event_label: btn.textContent.trim()
+    });
+  });
+});
+
+// ---------- Scroll depth ----------
+(function () {
+  const depths = [25, 50, 75, 100];
+  const fired = new Set();
+  window.addEventListener('scroll', () => {
+    const scrolled = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100;
+    depths.forEach(d => {
+      if (scrolled >= d && !fired.has(d)) {
+        fired.add(d);
+        if (typeof gtag === 'function') {
+          gtag('event', 'scroll_depth', { event_category: 'engagement', event_label: `${d}%`, value: d });
+        }
+      }
+    });
+  }, { passive: true });
+})();
+
+// ---------- Sección más vista ----------
+const sectionObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && typeof gtag === 'function') {
+      gtag('event', 'section_view', {
+        event_category: 'engagement',
+        event_label: entry.target.id || entry.target.className
+      });
     }
   });
+}, { threshold: 0.5 });
+document.querySelectorAll('section[id]').forEach(s => sectionObserver.observe(s));
+
+// ---------- Tiempo en página (30s y 60s) ----------
+[30, 60].forEach(seconds => {
+  setTimeout(() => {
+    if (typeof gtag === 'function') {
+      gtag('event', 'time_on_page', { event_category: 'engagement', event_label: `${seconds}s`, value: seconds });
+    }
+  }, seconds * 1000);
 });
 
 // ---------- Scroll reveal animation ----------
