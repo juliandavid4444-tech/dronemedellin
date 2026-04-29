@@ -96,12 +96,9 @@
       'coverage-suroeste':    'Suroeste y Norte',
       'coverage-otras':       'Otras regiones',
       'coverage-consult':     'A consultar',
-      /* Testimonials */
-      'testimonials-label': 'Testimoniales',
-      'testimonials-h2':    'Lo que dicen nuestros clientes',
-      'testimonial-1': '"Nos encantó el trabajo de Drone Medellín. Las fotos, los videos y la experiencia en nuestro matrimonio fueron maravillosos. ¡Mega recomendados!"',
-      'testimonial-2': '"Excelente servicio, muy profesionales. Las tomas aéreas para nuestra finca quedaron espectaculares. Definitivamente los volveré a contratar."',
-      'testimonial-3': '"El video promocional de nuestro hotel superó todas nuestras expectativas. La calidad del trabajo y la atención al detalle son incomparables."',
+      /* Brands */
+      'brands-label': 'Nuestros clientes',
+      'brands-h2':    'Han volado con nosotros',
       /* FAQ */
       'faq-label': 'Preguntas frecuentes',
       'faq-h2':    'Resolvemos tus dudas sobre nuestros servicios',
@@ -135,7 +132,7 @@
       'footer-links-services': 'Servicios',
       'footer-links-coverage': 'Cobertura',
       'footer-links-clients':  'Clientes',
-      'footer-copy': '2026 \u00a9 Todos los derechos reservados Drone Medell\u00edn\u00a0|\u00a0 Medell\u00edn, Antioquia, Colombia\u00a0|\u00a0 v 0.3.1'
+      'footer-copy': '2026 \u00a9 Todos los derechos reservados Drone Medell\u00edn\u00a0|\u00a0 Medell\u00edn, Antioquia, Colombia\u00a0|\u00a0 v 0.3.2'
     },
 
     en: {
@@ -225,12 +222,9 @@
       'coverage-suroeste':    'Southwest & North',
       'coverage-otras':       'Other regions',
       'coverage-consult':     'Upon request',
-      /* Testimonials */
-      'testimonials-label': 'Testimonials',
-      'testimonials-h2':    'What our clients say',
-      'testimonial-1': '"We loved Drone Medellín\'s work. The photos, videos, and experience at our wedding were wonderful. Highly recommended!"',
-      'testimonial-2': '"Excellent service, very professional. The aerial shots for our farm turned out spectacular. I will definitely hire them again."',
-      'testimonial-3': '"The promotional video for our hotel exceeded all our expectations. The quality of the work and attention to detail are unmatched."',
+      /* Brands */
+      'brands-label': 'Our clients',
+      'brands-h2':    "They've flown with us",
       /* FAQ */
       'faq-label': 'Frequently Asked Questions',
       'faq-h2':    'We answer your questions about our services',
@@ -264,7 +258,7 @@
       'footer-links-services': 'Services',
       'footer-links-coverage': 'Coverage',
       'footer-links-clients':  'Clients',
-      'footer-copy': '2026 \u00a9 All rights reserved Drone Medell\u00edn\u00a0|\u00a0 Medell\u00edn, Antioquia, Colombia\u00a0|\u00a0 v 0.3.1'
+      'footer-copy': '2026 \u00a9 All rights reserved Drone Medell\u00edn\u00a0|\u00a0 Medell\u00edn, Antioquia, Colombia\u00a0|\u00a0 v 0.3.2'
     }
   };
 
