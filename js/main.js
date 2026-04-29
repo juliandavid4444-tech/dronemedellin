@@ -192,35 +192,5 @@ document.querySelectorAll('.lite-youtube').forEach(el => {
   });
 });
 
-// ---------- Hero background video: carga diferida ----------
-// Carga el iframe del hero después de que la página esté ociosa,
-// manteniendo el efecto de video de fondo sin bloquear el LCP.
-(function () {
-  const wrap = document.getElementById('heroVideoWrap');
-  if (!wrap) return;
-  const id = wrap.dataset.videoId;
-  if (!id) return;
-  const loadHeroVideo = () => {
-    if (wrap.dataset.loaded === '1') return;
-    const iframe = document.createElement('iframe');
-    iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1`;
-    iframe.title = 'Drone Medellín – Showreel';
-    iframe.frameBorder = '0';
-    iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
-    iframe.setAttribute('allowfullscreen', '');
-    iframe.setAttribute('aria-hidden', 'true');
-    iframe.setAttribute('tabindex', '-1');
-    iframe.addEventListener('load', () => {
-      // Fade poster out una vez el iframe ya pintó
-      setTimeout(() => wrap.classList.add('is-loaded'), 400);
-    });
-    wrap.appendChild(iframe);
-    wrap.dataset.loaded = '1';
-  };
-  if ('requestIdleCallback' in window) {
-    requestIdleCallback(loadHeroVideo, { timeout: 2000 });
-  } else {
-    setTimeout(loadHeroVideo, 1200);
-  }
-})();
+
 

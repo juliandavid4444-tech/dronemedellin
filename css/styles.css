@@ -114,11 +114,6 @@ ul   { list-style: none; }
   height: 100%;
   transform: scale(1.15);
   border: 0;
-  opacity: 0;
-  transition: opacity 600ms ease;
-}
-.hero-video-wrap.is-loaded iframe {
-  opacity: 1;
 }
 .hero-poster {
   position: absolute;
@@ -128,10 +123,6 @@ ul   { list-style: none; }
   object-fit: cover;
   display: block;
   transform: scale(1.15);
-  transition: opacity 600ms ease;
-}
-.hero-video-wrap.is-loaded .hero-poster {
-  opacity: 0;
 }
 .hero-overlay {
   position: absolute; inset: 0; z-index: 2;
