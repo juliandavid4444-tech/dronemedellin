@@ -257,43 +257,90 @@ document.querySelectorAll('.lite-youtube').forEach(el => {
   gtag('set', 'user_properties', { ai_source: source });
 })();
 
-// ---------- Brands marquee: pausa en logo, aceleración en bordes ----------
+// ---------- Brands marquee: drag libre con momentum ----------
 (function () {
-  var marquee = document.querySelector('.brands-marquee');
-  var track   = document.querySelector('.brands-track');
-  if (!marquee || !track) return;
+  var track = document.querySelector('.brands-track');
+  if (!track) return;
 
-  var NORMAL = '45s';
-  var FAST   = '10s';
-  var EDGE   = 0.15;
-  var onItem = false;
+  var SPEED    = 0.6;   // px/frame scroll automático
+  var pos      = 0;
+  var velX     = 0;
+  var dragging = false;
+  var paused   = false;
+  var startX   = 0;
+  var startPos = 0;
+  var lastX    = 0;
 
-  document.querySelectorAll('.brand-item').forEach(function (item) {
-    item.addEventListener('mouseenter', function () {
-      onItem = true;
-      track.style.animationPlayState = 'paused';
-    });
-    item.addEventListener('mouseleave', function () {
-      onItem = false;
-      track.style.animationPlayState = 'running';
-    });
-  });
+  // JS toma el control — desactiva la animación CSS
+  track.style.animation = 'none';
+  track.style.willChange = 'transform';
+  track.style.cursor = 'grab';
 
-  marquee.addEventListener('mousemove', function (e) {
-    if (onItem) return;
-    var rect = marquee.getBoundingClientRect();
-    var x = (e.clientX - rect.left) / rect.width;
-    if (x < EDGE || x > (1 - EDGE)) {
-      track.style.animationDuration = FAST;
-      track.style.animationPlayState = 'running';
-    } else {
-      track.style.animationDuration = NORMAL;
+  function half() { return track.scrollWidth / 2; }
+
+  function wrap(x) {
+    var h = half();
+    while (x <= -h) x += h;
+    while (x > 0)   x -= h;
+    return x;
+  }
+
+  function tick() {
+    if (!dragging) {
+      if (!paused) {
+        if (Math.abs(velX) > 0.05) {
+          velX *= 0.94;           // decae el momentum del drag
+        } else {
+          velX = -SPEED;          // scroll automático normal
+        }
+        pos = wrap(pos + velX);
+      }
     }
+    track.style.transform = 'translateX(' + pos + 'px)';
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+
+  // Hover sobre un logo: pausa el scroll
+  document.querySelectorAll('.brand-item').forEach(function (item) {
+    item.addEventListener('mouseenter', function () { paused = true;  velX = 0; });
+    item.addEventListener('mouseleave', function () { paused = false; });
   });
 
-  marquee.addEventListener('mouseleave', function () {
-    onItem = false;
-    track.style.animationDuration = NORMAL;
-    track.style.animationPlayState = 'running';
+  // ---- Drag con mouse ----
+  track.addEventListener('mousedown', function (e) {
+    dragging = true; paused = false;
+    startX = e.clientX; startPos = pos; lastX = e.clientX; velX = 0;
+    track.style.cursor = 'grabbing';
+    e.preventDefault();
   });
+  window.addEventListener('mousemove', function (e) {
+    if (!dragging) return;
+    velX = e.clientX - lastX;
+    lastX = e.clientX;
+    pos = wrap(startPos + (e.clientX - startX));
+    track.style.transform = 'translateX(' + pos + 'px)';
+  });
+  window.addEventListener('mouseup', function () {
+    if (!dragging) return;
+    dragging = false;
+    track.style.cursor = 'grab';
+    // velX sigue en tick() como momentum
+  });
+
+  // ---- Drag con dedo (touch) ----
+  track.addEventListener('touchstart', function (e) {
+    dragging = true; paused = false;
+    startX = e.touches[0].clientX; startPos = pos;
+    lastX = startX; velX = 0;
+  }, { passive: true });
+  track.addEventListener('touchmove', function (e) {
+    if (!dragging) return;
+    velX = e.touches[0].clientX - lastX;
+    lastX = e.touches[0].clientX;
+    pos = wrap(startPos + (e.touches[0].clientX - startX));
+    track.style.transform = 'translateX(' + pos + 'px)';
+    e.preventDefault();
+  }, { passive: false });
+  track.addEventListener('touchend', function () { dragging = false; });
 })();
