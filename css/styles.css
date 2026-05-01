@@ -59,6 +59,7 @@ ul   { list-style: none; }
 }
 .navbar.scrolled {
   background: rgba(27,27,27,0.97);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   padding: 10px 0;
   box-shadow: 0 2px 20px rgba(0,0,0,0.4);
@@ -380,6 +381,7 @@ ul   { list-style: none; }
 }
 .brands-marquee {
   margin-top: 48px;
+  overflow: hidden;         /* fallback Safari < 16 */
   overflow-x: clip;
   overflow-y: visible;
   padding: 40px 0;
