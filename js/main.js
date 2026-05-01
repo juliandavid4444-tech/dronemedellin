@@ -51,10 +51,16 @@ sections.forEach(s => observer.observe(s));
 document.querySelectorAll('a[href*="api.whatsapp.com"], a[href*="wa.me"]').forEach(link => {
   link.addEventListener('click', () => {
     if (typeof gtag !== 'function') return;
-    gtag('event', 'conversion', { 'send_to': 'AW-581774690' });
+    // transport_type: 'beacon' garantiza envío aunque la app de WhatsApp
+    // abra y el navegador pase la página a segundo plano (crítico en móvil)
+    gtag('event', 'conversion', {
+      'send_to': 'AW-581774690',
+      'transport_type': 'beacon'
+    });
     gtag('event', 'whatsapp_click', {
       event_category: 'contacto',
-      event_label: link.id || link.className || 'whatsapp'
+      event_label: link.id || link.className || 'whatsapp',
+      'transport_type': 'beacon'
     });
   });
 });
