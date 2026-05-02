@@ -268,9 +268,9 @@ document.querySelectorAll('.lite-youtube').forEach(el => {
   var track = document.querySelector('.brands-track');
   if (!track) return;
 
-  var SPEED    = 0.6;   // px/frame scroll automático
+  var SPEED    = 1.0;   // px por frame a 60fps
   var pos      = 0;
-  var velX     = 0;
+  var velX     = -SPEED;
   var dragging = false;
   var paused   = false;
   var startX   = 0;
@@ -292,15 +292,15 @@ document.querySelectorAll('.lite-youtube').forEach(el => {
   }
 
   function tick() {
-    if (!dragging) {
-      if (!paused) {
-        if (Math.abs(velX) > 0.05) {
-          velX *= 0.94;           // decae el momentum del drag
-        } else {
-          velX = -SPEED;          // scroll automático normal
-        }
-        pos = wrap(pos + velX);
+    if (!dragging && !paused) {
+      if (Math.abs(velX + SPEED) > 0.3) {
+        // Transición suave desde momentum de drag de vuelta a velocidad base
+        velX += (-SPEED - velX) * 0.08;
+      } else {
+        // Auto-scroll perfectamente constante — sin variación
+        velX = -SPEED;
       }
+      pos = wrap(pos + velX);
     }
     track.style.transform = 'translateX(' + pos + 'px)';
     requestAnimationFrame(tick);
@@ -322,7 +322,7 @@ document.querySelectorAll('.lite-youtube').forEach(el => {
   });
   window.addEventListener('mousemove', function (e) {
     if (!dragging) return;
-    velX = e.clientX - lastX;
+    velX = (e.clientX - lastX) * 0.6; // escala para momentum suave
     lastX = e.clientX;
     pos = wrap(startPos + (e.clientX - startX));
     track.style.transform = 'translateX(' + pos + 'px)';
@@ -331,7 +331,7 @@ document.querySelectorAll('.lite-youtube').forEach(el => {
     if (!dragging) return;
     dragging = false;
     track.style.cursor = 'grab';
-    // velX sigue en tick() como momentum
+    // velX sigue en tick() como momentum, lerp lo lleva de vuelta a -SPEED
   });
 
   // ---- Drag con dedo (touch) ----
@@ -342,7 +342,7 @@ document.querySelectorAll('.lite-youtube').forEach(el => {
   }, { passive: true });
   track.addEventListener('touchmove', function (e) {
     if (!dragging) return;
-    velX = e.touches[0].clientX - lastX;
+    velX = (e.touches[0].clientX - lastX) * 0.6;
     lastX = e.touches[0].clientX;
     pos = wrap(startPos + (e.touches[0].clientX - startX));
     track.style.transform = 'translateX(' + pos + 'px)';

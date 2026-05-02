@@ -210,6 +210,8 @@ ul   { list-style: none; }
   height: 100%;
   object-fit: cover;
   z-index: 0;
+  color: transparent;
+  font-size: 0;
 }
 
 .panel-overlay {
@@ -242,7 +244,7 @@ ul   { list-style: none; }
 }
 
 /* Video Promocional - full width */
-.panel-full { flex: none; width: 100%; min-height: 520px; }
+.panel-full { flex: none; width: 100%; min-height: 520px; background: var(--dark); }
 
 .panel-full-overlay {
   flex-direction: column;
